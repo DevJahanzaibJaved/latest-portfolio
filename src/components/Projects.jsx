@@ -9,29 +9,29 @@ const projects = [
     category: 'Rails',
     desc: 'Full-stack talent recruitment marketplace for the CPG industry connecting brands with top-tier professionals.',
     tech: ['Ruby on Rails', 'JavaScript', 'jQuery', 'Sass'],
-    link: 'https://forcebrands.com',
+    link: 'https://forcebrands.com/',
     color: '#6C63FF',
-    emoji: '👔',
+    pattern: 'dots',
   },
   {
     name: 'FlipDeals',
     type: 'Ecommerce',
-    category: 'MERN',
+    category: ['MERN', 'Ecommerce'],
     desc: 'Dynamic online deals & shopping platform with real-time inventory, user auth, and seamless checkout.',
     tech: ['React', 'Node.js', 'MongoDB', 'Express.js'],
-    link: '#',
+    link: 'https://flipdeals.com/',
     color: '#00D4FF',
-    emoji: '🛍️',
+    pattern: 'grid',
   },
   {
     name: 'Kulta Properties',
     type: 'Real Estate',
-    category: 'Rails',
+    category: ['Rails', 'Deployments'],
     desc: 'Finnish real estate platform with advanced property listings, search filters, and agent dashboards.',
     tech: ['Ruby on Rails', 'JavaScript', 'jQuery', 'PostgreSQL'],
-    link: '#',
+    link: 'https://kultaproperties.com/',
     color: '#F59E0B',
-    emoji: '🏠',
+    pattern: 'diagonal',
   },
   {
     name: 'FromThePage',
@@ -39,9 +39,9 @@ const projects = [
     category: 'Rails',
     desc: 'Collaborative transcription platform enabling communities to transcribe and index historical documents.',
     tech: ['Ruby on Rails', 'PostgreSQL', 'JavaScript'],
-    link: 'https://fromthepage.com',
+    link: 'https://fromthepage.com/',
     color: '#8B5CF6',
-    emoji: '📜',
+    pattern: 'circles',
   },
   {
     name: 'Dear Brightly',
@@ -49,9 +49,9 @@ const projects = [
     category: 'MERN',
     desc: 'Custom retinoid skincare subscription platform with AI-driven product recommendations and telemedicine integrations.',
     tech: ['React', 'Rails', 'Microservices', 'Stripe'],
-    link: 'https://dearbrightly.com',
+    link: 'https://www.dearbrightly.com/',
     color: '#EC4899',
-    emoji: '✨',
+    pattern: 'dots',
   },
   {
     name: 'Doctors Galaxy',
@@ -59,9 +59,9 @@ const projects = [
     category: 'MERN',
     desc: 'Healthcare ecosystem connecting patients with medical professionals for appointments, records, and consultations.',
     tech: ['Node.js', 'React', 'MongoDB', 'Socket.io'],
-    link: '#',
+    link: 'https://www.doctorsgalaxy.com/',
     color: '#10B981',
-    emoji: '⚕️',
+    pattern: 'grid',
   },
   {
     name: 'WellFunded',
@@ -69,9 +69,9 @@ const projects = [
     category: 'Rails',
     desc: 'Philanthropy and Donor Advised Fund platform for Canadian nonprofits with automated compliance reporting.',
     tech: ['Ruby on Rails', 'React', 'PostgreSQL', 'Stripe'],
-    link: '#',
+    link: 'https://www.wellfunded.io/',
     color: '#3B82F6',
-    emoji: '💰',
+    pattern: 'diagonal',
   },
   {
     name: 'Catalister',
@@ -79,9 +79,9 @@ const projects = [
     category: 'AI',
     desc: 'AI-powered product research and listing expert that automates marketplace content generation.',
     tech: ['Node.js', 'OpenAI API', 'React', 'MongoDB'],
-    link: '#',
+    link: 'https://catalister.com/',
     color: '#F97316',
-    emoji: '🤖',
+    pattern: 'circles',
   },
   {
     name: 'BooqX',
@@ -89,19 +89,19 @@ const projects = [
     category: 'Rails',
     desc: 'Appointment automation system for German service businesses with smart scheduling and calendar sync.',
     tech: ['Ruby on Rails', 'JavaScript', 'PostgreSQL', 'Stripe'],
-    link: '#',
+    link: 'https://booqx.de/',
     color: '#6366F1',
-    emoji: '📅',
+    pattern: 'dots',
   },
   {
     name: 'Diyas Direct',
     type: 'Shopify',
-    category: 'Shopify',
+    category: ['Shopify', 'Ecommerce', 'Deployments'],
     desc: 'Premium Asian bridal and groomswear Shopify store for UK market with custom Liquid theme and UX.',
     tech: ['Shopify', 'Liquid', 'JavaScript', 'CSS'],
-    link: '#',
+    link: 'https://diyasdirect.co.uk/',
     color: '#E11D48',
-    emoji: '👗',
+    pattern: 'grid',
   },
   {
     name: 'Experfy',
@@ -109,9 +109,9 @@ const projects = [
     category: 'Rails',
     desc: 'AI and big data talent marketplace — built and maintained backend APIs for matching algorithms.',
     tech: ['Ruby on Rails', 'APIs', 'PostgreSQL', 'AWS'],
-    link: 'https://experfy.com',
+    link: 'https://www.experfy.com/',
     color: '#0EA5E9',
-    emoji: '🧠',
+    pattern: 'diagonal',
   },
   {
     name: 'A&A Services',
@@ -119,11 +119,134 @@ const projects = [
     category: 'Deployments',
     desc: 'West Midlands charity services website providing accessible resources and donation management.',
     tech: ['WordPress', 'PHP', 'CSS', 'MySQL'],
-    link: '#',
+    link: 'https://aandaserviceswestmidlands.co.uk/',
     color: '#84CC16',
-    emoji: '❤️',
+    pattern: 'circles',
   },
 ]
+
+// Derive 2-letter initials from project name
+function getInitials(name) {
+  const words = name.replace(/[^a-zA-Z\s]/g, '').trim().split(/\s+/)
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase()
+  return (words[0][0] + words[1][0]).toUpperCase()
+}
+
+// CSS background patterns per type
+function getPattern(type, color) {
+  const c = color + '28' // ~16% opacity
+  switch (type) {
+    case 'dots':
+      return {
+        backgroundImage: `radial-gradient(circle, ${c} 1.5px, transparent 1.5px)`,
+        backgroundSize: '22px 22px',
+      }
+    case 'grid':
+      return {
+        backgroundImage: `linear-gradient(${c} 1px, transparent 1px), linear-gradient(90deg, ${c} 1px, transparent 1px)`,
+        backgroundSize: '28px 28px',
+      }
+    case 'diagonal':
+      return {
+        backgroundImage: `repeating-linear-gradient(45deg, ${c} 0, ${c} 1px, transparent 0, transparent 50%)`,
+        backgroundSize: '18px 18px',
+      }
+    case 'circles':
+      return {
+        backgroundImage: `radial-gradient(circle at 50% 50%, transparent 30%, ${c} 31%, ${c} 32%, transparent 33%), radial-gradient(circle at 50% 50%, transparent 55%, ${c} 56%, ${c} 57%, transparent 58%)`,
+        backgroundSize: '60px 60px',
+      }
+    default:
+      return {}
+  }
+}
+
+function ProjectThumbnail({ project }) {
+  const initials = getInitials(project.name)
+  const patternStyle = getPattern(project.pattern, project.color)
+
+  return (
+    <div
+      className="relative h-40 overflow-hidden"
+      style={{
+        background: `linear-gradient(135deg, ${project.color}18 0%, ${project.color}06 100%)`,
+      }}
+    >
+      {/* Geometric pattern overlay */}
+      <div className="absolute inset-0" style={patternStyle} />
+
+      {/* Radial glow behind initials */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `radial-gradient(ellipse 60% 70% at 50% 60%, ${project.color}18 0%, transparent 70%)`,
+        }}
+      />
+
+      {/* Mock browser chrome bar */}
+      <div
+        className="relative z-10 flex items-center gap-1.5 px-3 py-2 border-b"
+        style={{ borderColor: `${project.color}20` }}
+      >
+        <span className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
+        <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
+        <span className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
+        <div
+          className="flex-1 mx-2 h-4 rounded-full flex items-center px-2"
+          style={{ background: 'rgba(255,255,255,0.06)', maxWidth: '140px' }}
+        >
+          <span
+            className="text-[9px] font-body truncate"
+            style={{ color: `${project.color}80` }}
+          >
+            {project.link !== '#' ? project.link.replace('https://', '') : project.name.toLowerCase().replace(/\s/g, '') + '.com'}
+          </span>
+        </div>
+      </div>
+
+      {/* Initials */}
+      <div className="absolute inset-0 flex items-center justify-center pt-3">
+        <span
+          className="font-heading font-black select-none"
+          style={{
+            fontSize: '4.5rem',
+            lineHeight: 1,
+            color: project.color,
+            opacity: 0.22,
+            letterSpacing: '-0.04em',
+            userSelect: 'none',
+          }}
+        >
+          {initials}
+        </span>
+      </div>
+
+      {/* Centered project name label — small, clean */}
+      <div className="absolute bottom-3 left-4 z-10">
+        <span
+          className="font-heading font-bold text-xs tracking-wide"
+          style={{ color: project.color, opacity: 0.9 }}
+        >
+          {project.name}
+        </span>
+      </div>
+
+      {/* Type badge */}
+      <div className="absolute top-8 right-3 z-10">
+        <span
+          className="px-2 py-0.5 rounded text-xs font-heading font-semibold"
+          style={{
+            background: `${project.color}18`,
+            border: `1px solid ${project.color}40`,
+            color: project.color,
+          }}
+        >
+          {project.type}
+        </span>
+      </div>
+    </div>
+  )
+}
 
 const filters = ['All', 'Rails', 'MERN', 'Ecommerce', 'Shopify', 'AI', 'Deployments']
 
@@ -133,7 +256,11 @@ export default function Projects({ darkMode }) {
 
   const filtered = activeFilter === 'All'
     ? projects
-    : projects.filter((p) => p.category === activeFilter)
+    : projects.filter((p) =>
+        Array.isArray(p.category)
+          ? p.category.includes(activeFilter)
+          : p.category === activeFilter
+      )
 
   return (
     <section id="projects" className={`py-24 px-6 ${darkMode ? 'bg-[#111111]' : 'bg-white'}`}>
@@ -215,21 +342,8 @@ export default function Projects({ darkMode }) {
                   e.currentTarget.style.boxShadow = 'none'
                 }}
               >
-                {/* Project thumbnail / header */}
-                <div className="relative h-36 flex items-center justify-center overflow-hidden"
-                  style={{ background: `linear-gradient(135deg, ${project.color}22 0%, ${project.color}08 100%)` }}>
-                  <span className="text-6xl">{project.emoji}</span>
-                  <div className="absolute top-3 right-3 flex items-center gap-2">
-                    <span className="px-2 py-1 rounded text-xs font-heading font-semibold"
-                      style={{
-                        background: `${project.color}22`,
-                        border: `1px solid ${project.color}44`,
-                        color: project.color,
-                      }}>
-                      {project.type}
-                    </span>
-                  </div>
-                </div>
+                {/* Project thumbnail */}
+                <ProjectThumbnail project={project} />
 
                 {/* Content */}
                 <div className="p-5">
